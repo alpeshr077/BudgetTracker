@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/bt_home"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/bt_add"
+        android:icon="@drawable/baseline_add_24"
+        android:title="Add" />
+
+    <item
+        android:id="@+id/bt_trans"
+        android:icon="@drawable/baseline_account_balance_wallet_24"
+        android:title="Transaction" />
+
+
+</menu>
