@@ -3,6 +3,7 @@ package DatabaseClass
 import ModelClass.TransModel
 import android.content.ContentValues
 import android.content.Context
+import android.content.LocusId
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
@@ -84,6 +85,12 @@ class DBHelper(
             }
         }
         db.update(TABLE_NAME,values,"id=${transModel.id}",null)
+    }
+
+    fun deleteTrans(id:Int){
+
+        var db = writableDatabase
+        db.delete(TABLE_NAME,"id=$id",null)
     }
 
 }
