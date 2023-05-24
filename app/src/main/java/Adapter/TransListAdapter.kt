@@ -35,6 +35,7 @@ class TransListAdapter(update: (TransModel) -> Unit,delete:(Int)->Unit) : Recycl
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransListHolder {
 
+        context = parent.context
         var binding = TransItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TransListHolder(binding)
     }
@@ -58,12 +59,12 @@ class TransListAdapter(update: (TransModel) -> Unit,delete:(Int)->Unit) : Recycl
 
                 if (isexpense == 0) {
                     txtAmount.setTextColor(Color.BLACK)
-                    round.setImageResource(drawable.down_arrow)
-                    roundBack.setImageResource(drawable.up_arrow_design)
+                    round.setImageResource(drawable.white_down_arrow)
+                    roundBack.setImageResource(drawable.white_back_design)
                 } else {
-                    txtAmount.setTextColor(Color.RED)
-                    round.setImageResource(drawable.up_arrow)
-                    roundBack.setImageResource(drawable.up_arrow_design2)
+                    txtAmount.setTextColor(Color.parseColor("#FC0606"))
+                    round.setImageResource(drawable.white_up_arrow)
+                    roundBack.setImageResource(drawable.white_back_design)
                 }
             }
 
@@ -105,7 +106,7 @@ class TransListAdapter(update: (TransModel) -> Unit,delete:(Int)->Unit) : Recycl
     }
 
     fun updateData(transaction: java.util.ArrayList<TransModel>) {
-        translist = translist
+        translist = transaction
         notifyDataSetChanged()
     }
 }

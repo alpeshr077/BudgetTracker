@@ -107,13 +107,16 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Button
+    <TextView
         android:id="@+id/btnSubmit"
         android:layout_width="120dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:text="Submit"
+        android:textStyle="bold"
         android:textSize="18dp"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/back_in_design_1"/>
 
 </LinearLayout>

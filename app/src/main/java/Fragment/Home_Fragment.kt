@@ -1,60 +1,137 @@
 package Fragment
 
+import Adapter.TransListAdapter
+import DatabaseClass.DBHelper
+import ModelClass.TransModel
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.alpesh1.budgettracker.R
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.alpesh1.budgettracker.databinding.FragmentHomeBinding
+import com.alpesh1.budgettracker.databinding.UpdateDiaogBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Home_Fragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Home_Fragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+
+    var translist = ArrayList<TransModel>()
+    lateinit var dbHelper: DBHelper
+    lateinit var adapter: TransListAdapter
+    lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_, container, false)
+
+        binding = FragmentHomeBinding.inflate(layoutInflater)
+
+
+
+        dbHelper = DBHelper(context)
+        translist = dbHelper.getTransaction()
+
+        updateTotal(translist)
+
+        translist = translist.reversed() as ArrayList<TransModel>
+
+        adapter = TransListAdapter({
+
+            updateDialog(it)
+
+        }, {
+
+            deleteTrans(it)
+        })
+        adapter.setTrans(translist)
+
+        binding.rcvTransList.layoutManager = LinearLayoutManager(context)
+        binding.rcvTransList.adapter = adapter
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Home_Fragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Home_Fragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+    private fun deleteTrans(it: Int) {
+
+        var dialog = AlertDialog.Builder(requireContext())
+            .setTitle("Delete Transaction")
+            .setMessage("Are you want sure?")
+            .setPositiveButton("Yes", object : DialogInterface.OnClickListener {
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+
+                    dbHelper.deleteTrans(it)
+                    updateTotal(dbHelper.getTransaction())
+
+                    try {
+                        adapter.updateData(
+                            dbHelper.getTransaction().reversed() as java.util.ArrayList<TransModel>
+                        )
+
+                    } catch (e: Exception) {
+
+                    }
+
                 }
-            }
+
+            }).setNegativeButton("No", object : DialogInterface.OnClickListener {
+                override fun onClick(p0: DialogInterface?, p1: Int) {
+
+                }
+
+            }).create()
+        dialog.show()
     }
+
+    fun updateTotal(translist: ArrayList<TransModel>) {
+        var totalIncome = 0
+        var totalExpense = 0
+
+        for (trans in translist){
+            if (trans.isexpense == 0){
+                totalIncome +=trans.amount
+            }else{
+                totalExpense += trans.amount
+            }
+        }
+
+        binding.TransIncome.text = totalIncome.toString()
+        binding.TransExpense.text = totalExpense.toString()
+        binding.Total.text = (totalIncome-totalExpense).toString()
+    }
+
+    private fun updateDialog(transModel: TransModel) {
+        var dialog = Dialog(requireContext())
+        var bind = UpdateDiaogBinding.inflate(layoutInflater)
+        dialog.setContentView(bind.root)
+
+        bind.edtAmount.setText(transModel.amount.toString())
+        bind.edtCategory.setText(transModel.category)
+        bind.edtNote.setText(transModel.notes)
+
+        bind.btnSubmit1.setOnClickListener {
+            var amount = bind.edtAmount.text.toString().toInt()
+            var category = bind.edtCategory.text.toString()
+            var note = bind.edtNote.text.toString()
+            var modal = TransModel(transModel.id, amount, category, note, transModel.isexpense)
+
+            dbHelper.updateTrans(modal)
+            dialog.dismiss()
+
+            adapter.updateData(dbHelper.getTransaction().reversed() as java.util.ArrayList<TransModel>)
+            updateTotal(dbHelper.getTransaction())
+
+//            bind.edtAmount.setText("")
+//            bind.edtCategory.setText("")
+//            bind.edtNote.setText("")
+        }
+
+        dialog.show()
+    }
+
 }

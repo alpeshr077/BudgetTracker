@@ -23,7 +23,6 @@ class Transaction_Fragment : Fragment() {
     lateinit var dbHelper: DBHelper
     lateinit var adapter: TransListAdapter
     lateinit var binding: FragmentTransactionBinding
-    var isexpense = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,9 +85,9 @@ class Transaction_Fragment : Fragment() {
         var bind = UpdateDiaogBinding.inflate(layoutInflater)
         dialog.setContentView(bind.root)
 
-        bind.edtAmount.setText(transModel.amount).toString()
-        bind.edtCategory.setText(transModel.category).toString()
-        bind.edtNote.setText(transModel.notes).toString()
+        bind.edtAmount.setText(transModel.amount.toString())
+        bind.edtCategory.setText(transModel.category)
+        bind.edtNote.setText(transModel.notes)
 
         bind.btnSubmit1.setOnClickListener {
             var amount = bind.edtAmount.text.toString().toInt()

@@ -14,7 +14,9 @@
        android:layout_marginLeft="16dp"/>
 
    <androidx.recyclerview.widget.RecyclerView
-       android:layout_margin="16dp"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:layout_marginTop="16dp"
        android:id="@+id/rcvTransList"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"

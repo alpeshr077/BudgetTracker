@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
             BottomNavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
+                loadFragment(Home_Fragment())
+
                 when (item.itemId) {
 
                     R.id.bt_home -> {

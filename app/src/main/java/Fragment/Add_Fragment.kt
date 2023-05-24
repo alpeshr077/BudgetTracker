@@ -40,14 +40,14 @@ class Add_Fragment : Fragment() {
 
         binding.cardIncome.setOnClickListener {
             isexpense = 0
-            binding.cardIncome.setCardBackgroundColor(Color.parseColor("#26A8E8"))
+            binding.cardIncome.setCardBackgroundColor(Color.parseColor("#FAA43A"))
             binding.cardExpense.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
         }
 
         binding.cardExpense.setOnClickListener {
             isexpense = 1
             binding.cardIncome.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
-            binding.cardExpense.setCardBackgroundColor(Color.parseColor("#26A8E8"))
+            binding.cardExpense.setCardBackgroundColor(Color.parseColor("#FAA43A"))
         }
 
         binding.btnSubmit.setOnClickListener {
