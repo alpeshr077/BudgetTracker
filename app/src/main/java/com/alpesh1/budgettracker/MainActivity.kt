@@ -12,13 +12,13 @@ import com.alpesh1.budgettracker.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+
     lateinit var dbHelper: DBHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        loadFragment(Home_Fragment())
         binding.bottomicon.setOnNavigationItemSelectedListener(object :
             BottomNavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -43,13 +43,23 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
 
-            private fun loadFragment(fragment: Fragment) {
 
-                supportFragmentManager.beginTransaction().replace(R.id.fragFrame, fragment).commit()
-            }
 
         })
 
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragFrame, fragment).commit()
+    }
+
+    companion object {
+        lateinit var binding: ActivityMainBinding
+        fun change(i: Int) {
+            binding.bottomicon.selectedItemId = R.id.bt_add
+
+        }
     }
 
 }

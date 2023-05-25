@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alpesh1.budgettracker.MainActivity
 import com.alpesh1.budgettracker.databinding.FragmentHomeBinding
 import com.alpesh1.budgettracker.databinding.UpdateDiaogBinding
 
@@ -38,7 +39,7 @@ class Home_Fragment : Fragment() {
 
         updateTotal(translist)
 
-        translist = translist.reversed() as ArrayList<TransModel>
+//        translist = translist
 
         adapter = TransListAdapter({
 
@@ -52,6 +53,10 @@ class Home_Fragment : Fragment() {
 
         binding.rcvTransList.layoutManager = LinearLayoutManager(context)
         binding.rcvTransList.adapter = adapter
+
+        binding.addIncome.setOnClickListener {
+            MainActivity.change(1)
+        }
 
         return binding.root
     }
