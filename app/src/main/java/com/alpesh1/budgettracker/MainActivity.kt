@@ -18,7 +18,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         loadFragment(Home_Fragment())
+
         binding.bottomicon.setOnNavigationItemSelectedListener(object :
             BottomNavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -44,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-
         })
 
     }
@@ -60,6 +61,11 @@ class MainActivity : AppCompatActivity() {
             binding.bottomicon.selectedItemId = R.id.bt_add
 
         }
+
+        fun secondchange(i: Int) {
+            binding.bottomicon.selectedItemId = R.id.bt_add
+        }
+
     }
 
 }

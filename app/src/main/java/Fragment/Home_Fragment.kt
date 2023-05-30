@@ -32,14 +32,12 @@ class Home_Fragment : Fragment() {
 
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
-
-
         dbHelper = DBHelper(context)
         translist = dbHelper.getTransaction()
 
         updateTotal(translist)
 
-//        translist = translist
+        translist = translist.reversed() as ArrayList<TransModel>
 
         adapter = TransListAdapter({
 
@@ -56,6 +54,10 @@ class Home_Fragment : Fragment() {
 
         binding.addIncome.setOnClickListener {
             MainActivity.change(1)
+        }
+
+        binding.addExpense.setOnClickListener {
+            MainActivity.secondchange(2)
         }
 
         return binding.root

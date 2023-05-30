@@ -4,10 +4,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:gravity="center">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
@@ -27,7 +28,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
@@ -46,7 +47,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
@@ -71,7 +72,8 @@
         android:text="Submit"
         android:textSize="18dp"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:ems="10"/>
 
 
 </LinearLayout>
